@@ -1,9 +1,16 @@
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const path = require("path");
-const webpack = require("webpack");
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import path from "path";
+import webpack from "webpack";
+// in case you run into any typescript error when configuring `devServer`
+import "webpack-dev-server";
 
-module.exports = (env) => {
-  return {
+type Mode = "production" | "development";
+interface EnvVariables {
+  mode: Mode;
+}
+
+export default (env: EnvVariables) => {
+  const config: webpack.Configuration = {
     mode: env.mode ?? "development",
     entry: path.resolve(__dirname, "src", "index.ts"),
     module: {
@@ -31,4 +38,6 @@ module.exports = (env) => {
       new webpack.ProgressPlugin(),
     ],
   };
+
+  return config;
 };
