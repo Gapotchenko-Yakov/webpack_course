@@ -7,9 +7,12 @@ import "webpack-dev-server";
 type Mode = "production" | "development";
 interface EnvVariables {
   mode: Mode;
+  port: number;
 }
 
 export default (env: EnvVariables) => {
+  const isDev = env.mode === "development";
+
   const config: webpack.Configuration = {
     mode: env.mode ?? "development",
     entry: path.resolve(__dirname, "src", "index.ts"),
@@ -35,8 +38,15 @@ export default (env: EnvVariables) => {
         // Also generate a test.html
         template: path.resolve(__dirname, "public", "index.html"),
       }),
-      new webpack.ProgressPlugin(),
-    ],
+      isDev && new webpack.ProgressPlugin(),
+    ].filter(Boolean),
+    devtool: isDev ? "inline-source-map" : undefined,
+    devServer: isDev
+      ? {
+          port: env.port ?? 3000,
+          open: true,
+        }
+      : undefined,
   };
 
   return config;
