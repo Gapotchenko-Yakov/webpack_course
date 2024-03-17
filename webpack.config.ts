@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import path from "path";
 import webpack from "webpack";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 // in case you run into any typescript error when configuring `devServer`
 import "webpack-dev-server";
 
@@ -12,6 +13,7 @@ interface EnvVariables {
 
 export default (env: EnvVariables) => {
   const isDev = env.mode === "development";
+  const isProd = env.mode === "production";
 
   const config: webpack.Configuration = {
     mode: env.mode ?? "development",
@@ -23,7 +25,7 @@ export default (env: EnvVariables) => {
           test: /\.s[ac]ss$/i,
           use: [
             // Creates `style` nodes from JS strings
-            "style-loader",
+            isDev ? "style-loader" : MiniCssExtractPlugin.loader,
             // Translates CSS into CommonJS
             "css-loader",
             // Compiles Sass to CSS
@@ -52,7 +54,13 @@ export default (env: EnvVariables) => {
         // Also generate a test.html
         template: path.resolve(__dirname, "public", "index.html"),
       }),
-      isDev && new webpack.ProgressPlugin(),
+      isDev ? new webpack.ProgressPlugin() : null,
+      isDev
+        ? null
+        : new MiniCssExtractPlugin({
+            filename: "css/[name].[contenthash:8].css",
+            chunkFilename: "css/[name].[contenthash:8].css",
+          }),
     ].filter(Boolean),
     devtool: isDev ? "inline-source-map" : undefined,
     devServer: isDev
