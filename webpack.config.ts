@@ -18,6 +18,18 @@ export default (env: EnvVariables) => {
     entry: path.resolve(__dirname, "src", "index.tsx"),
     module: {
       rules: [
+        // порядок имеет значение
+        {
+          test: /\.s[ac]ss$/i,
+          use: [
+            // Creates `style` nodes from JS strings
+            "style-loader",
+            // Translates CSS into CommonJS
+            "css-loader",
+            // Compiles Sass to CSS
+            "sass-loader",
+          ],
+        },
         {
           // ts-loader из коробки умеет работать с tsx
           // если бы не он то пришлось бы настраивать babel-loader для jsx
