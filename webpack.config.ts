@@ -15,10 +15,12 @@ export default (env: EnvVariables) => {
 
   const config: webpack.Configuration = {
     mode: env.mode ?? "development",
-    entry: path.resolve(__dirname, "src", "index.ts"),
+    entry: path.resolve(__dirname, "src", "index.tsx"),
     module: {
       rules: [
         {
+          // ts-loader из коробки умеет работать с tsx
+          // если бы не он то пришлось бы настраивать babel-loader для jsx
           test: /\.tsx?$/,
           use: "ts-loader",
           exclude: /node_modules/,
