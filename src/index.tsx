@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         path: "/about",
         element: (
           <Suspense fallback={"\nLoading"}>
-            <About />
+            <LazyAbout />
           </Suspense>
         ),
       },

@@ -3,10 +3,12 @@ import { Configuration } from "webpack";
 import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { BuildOptions } from "./types/types";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 export function buildPlugins({
   mode,
   paths,
+  analyser,
 }: BuildOptions): Configuration["plugins"] {
   const isDev = mode === "development";
   const isProd = mode === "production";
@@ -29,6 +31,10 @@ export function buildPlugins({
         chunkFilename: "css/[name].[contenthash:8].css",
       })
     );
+  }
+
+  if (analyser) {
+    plugins.push(new BundleAnalyzerPlugin());
   }
 
   return plugins;
