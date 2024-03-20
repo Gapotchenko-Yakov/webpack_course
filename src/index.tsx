@@ -2,8 +2,8 @@ import { createRoot } from "react-dom/client";
 import { App } from "./components/App";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-import LazyAbout from "./pages/about";
-import LazyShop from "./pages/shop";
+import LazyAbout from "@/pages/about";
+import LazyShop from "@/pages/shop";
 import About from "./pages/about/about";
 import Shop from "./pages/shop/shop";
 
