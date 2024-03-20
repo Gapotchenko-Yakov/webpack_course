@@ -1,4 +1,4 @@
-button {
+.button {
   background: yellowgreen;
   padding: 10px 20px;
   border-radius: 5px;
@@ -7,4 +7,10 @@ button {
     color:indigo;
     text-transform: uppercase;
   }
+  
+
+}
+
+.value{
+  font-size: 80px;
 }
