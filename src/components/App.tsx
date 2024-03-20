@@ -11,8 +11,21 @@ export const App = () => {
 
   const increment = () => setCount((prev) => prev + 1);
 
+  if (__PLATFORM__ === "desktop") {
+    return <div>ISDESKTOPPLATFORM</div>;
+  }
+
+  if (__PLATFORM__ === "mobile") {
+    return <div>ISMOBILEPLATFORM</div>;
+  }
+
+  if (__ENV__) {
+    //devTools()
+  }
+
   return (
     <div>
+      <h1>PLATFORM={__PLATFORM__}</h1>
       <div>
         <img src={RenjiJPG} />
         <img src={RenjiPNG} />

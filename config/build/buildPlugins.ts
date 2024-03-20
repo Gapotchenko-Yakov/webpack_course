@@ -1,5 +1,5 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import { Configuration } from "webpack";
+import { Configuration, DefinePlugin } from "webpack";
 import webpack from "webpack";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { BuildOptions } from "./types/types";
@@ -9,14 +9,18 @@ export function buildPlugins({
   mode,
   paths,
   analyser,
+  platform,
 }: BuildOptions): Configuration["plugins"] {
   const isDev = mode === "development";
   const isProd = mode === "production";
 
   const plugins: Configuration["plugins"] = [
     new HtmlWebpackPlugin({
-      // Also generate a test.html
       template: paths.html,
+    }),
+    new DefinePlugin({
+      __PLATFORM__: JSON.stringify(platform),
+      __ENV__: JSON.stringify(mode),
     }),
   ];
 
