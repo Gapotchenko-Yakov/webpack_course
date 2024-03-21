@@ -28,6 +28,27 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
     ],
   };
 
+  const babelLoader = {
+    // test: /\.m?js$/,
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: {
+      loader: "babel-loader",
+      options: {
+        presets: [
+          "@babel/preset-env",
+          "@babel/preset-typescript",
+          [
+            "@babel/preset-react",
+            {
+              runtime: isDev ? "automatic" : "classic",
+            },
+          ],
+        ],
+      },
+    },
+  };
+
   const tsLoader = {
     // ts-loader из коробки умеет работать с tsx
     // если бы не он то пришлось бы настраивать babel-loader для jsx
@@ -70,5 +91,11 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
     ],
   };
 
-  return [svgrLoader, assetsLoader, sassLoader, tsLoader];
+  return [
+    svgrLoader,
+    assetsLoader,
+    sassLoader,
+    //tsLoader,
+    babelLoader,
+  ];
 }
