@@ -14,7 +14,8 @@ export const App = () => {
   const [count, setCount] = useState<number>(0);
 
   const increment = () => setCount((prev) => prev + 1);
-  TestNumber("abc");
+  TestNumber(355);
+  TestNumber(55);
 
   // if (__PLATFORM__ === "desktop") {
   //   return <div>ISDESKTOPPLATFORM</div>;
