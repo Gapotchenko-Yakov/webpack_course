@@ -31,7 +31,12 @@ export function buildLoaders(options: BuildOptions): ModuleOptions["rules"] {
     // ts-loader из коробки умеет работать с tsx
     // если бы не он то пришлось бы настраивать babel-loader для jsx
     test: /\.tsx?$/,
-    use: "ts-loader",
+    use: {
+      loader: "ts-loader",
+      options: {
+        transpileOnly: isDev,
+      },
+    },
     exclude: /node_modules/,
   };
 
